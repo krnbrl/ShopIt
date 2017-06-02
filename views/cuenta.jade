@@ -1,0 +1,143 @@
+extends layout
+
+block content
+	article.page
+		#edit-profile-popup.pop_up_container
+			.pop_up_back(onclick="showPopup( false, '#edit-profile-popup' );")
+			.pop_up.big
+				.inner
+					.bg_white.shadow_raised
+						.bg_primary.font_white
+							.text_align_right.pd_8
+								button.pd_8.circle.hover_black(onclick="showPopup( false, '#edit-profile-popup' );")
+									img.icon(src='/icons/close_white.png')
+							.pop_up_title
+								h1.title_big
+									| Editar Perfil
+						form.pd_16.padding_block.responsive_col
+							.col_2.v_align_top.mr_bottom_24
+								.pd_8
+									.photo_container.profile_container
+										h2.title_smaller.mr_bottom_24.font_primary
+											| Foto de perfil
+										.img_container.circle.margin_auto.bigger.change_photo
+											img#profile-new-photo.icon(src='/icons/default_profile.png')
+											button#change-profile-photo(onclick="triggerClick('#profile-photo-file');")
+												img(src='/icons/camera_white.png')
+										input#profile-photo-file(type='file', style='display: none;', name='', onchange="previewPhoto( this, '#profile-new-photo' );")
+									.data_container.mr_top_24
+										h2.title_smaller.mr_bottom_24.font_primary
+											| Nombre
+										.pd_left_16.pd_right_16
+											.field_container
+												label.opacity.font_bold.font_small Nombre(s)
+												.field
+													input(type='text', name='nombre', placeholder='Nombre(s)')
+											.field_container.mr_top_12
+												label.opacity.font_bold.font_small Apellidos
+												.field
+													input(type='text', name='apellidos', placeholder='Apellidos')
+							.col_2.v_align_top
+								.pd_8
+									.data_container
+										h2.title_smaller.mr_bottom_24.font_primary
+											| Dirección
+										.pd_left_16.pd_right_16
+											.field_container
+												label.opacity.font_bold.font_small Calle
+												.field
+													input(type='text', name='calle', placeholder='Calle')
+											.field_container.mr_top_12
+												label.opacity.font_bold.font_small Colonia
+												.field
+													input(type='text', name='colonia', placeholder='Colonia')
+											.field_container.mr_top_12
+												label.opacity.font_bold.font_small Ciudad
+												.field
+													input(type='text', name='ciudad', placeholder='Ciudad')
+											.field_container.mr_top_12
+												label.opacity.font_bold.font_small Estado
+												.field
+													input(type='text', name='estado', placeholder='Estado')
+											.field_container.mr_top_12
+												label.opacity.font_bold.font_small País
+												.field
+													input(type='text', name='pais', placeholder='País')
+									.data_container.mr_top_32
+										h2.title_smaller.mr_bottom_24.font_primary
+											| Teléfonos
+										.pd_left_16.pd_right_16
+											.field_container.mr_top_12
+												label.opacity.font_bold.font_small Telefono
+												.field
+													input(type='text', name='telefono', placeholder='Teléfono')
+										.mr_top_12.pd_left_16.pd_right_16
+											button#add-phonebutton.circle.hover_black.pd_8(title='Agregar teléfono')
+												img.icon.opacity(src='/icons/phone-plus_black.png')
+							.field_container.mr_top_32
+								.field.text_align_right
+									input.bg_secondary.shadow_raised.font_white.border_radius(type='submit', name='', value='Guardar Cambios')
+		.account_container
+			h1.title_bigger.pd_24.font_primary.font_normal.resp_title
+				| Cuenta
+			.account_subcontainer
+				section.left
+					.profile_container.mr_bottom_16.bg_white.shadow_flat
+						.pd_8
+							.text_align_right
+								button.edit.pd_8.circle.hover_black(title='Editar', onclick="showPopup( true, '#edit-profile-popup' );")
+									img.icon.opacity(src='/icons/edit_black.png')
+						.pd_24.pd_top_0
+							.text_align_center
+								.img_container.circle.margin_auto.big
+									img(src='/icons/default_profile.png')
+								.name.mr_top_24
+									a.font_gray(href='')
+										h3.title_smaller
+											| #{datos.nombre}
+										h5.font_big.opacity.mr_top_4 #{datos.mail}
+								.info.mr_top_24
+									.text_align_center
+										a.underline.font_gray(href='carrito.html')
+											p.font_big
+												img.icon.v_align_middle.opacity(src='/icons/cart_black.png', style='position: relative;top: -2px;')
+												strong.mr_left_8
+													| 2 Compras
+							.mr_top_32
+								section
+									h3.opacity
+										img.icon.v_align_middle(src='/icons/map-marker_black.png')
+										span.mr_left_8.v_align_middle
+											| Dirección
+									p.font_big.pd_16
+										| #{datos.direccion}
+								section.pd_top_16
+									h3.opacity
+										img.icon.v_align_middle(src='/icons/phone_black.png')
+										span.mr_left_8.v_align_middle
+											| Teléfonos
+									p.font_big.pd_16
+										| 5546998574
+							.field_container.text_align_right.mr_top_32
+								.field
+									button.font_red.font_big
+										| Eliminar mi cuenta
+				section.right
+					.cards_container
+						h1.title_small.font_primary.pd_16.mr_bottom_8
+							| Tarjetas
+						.card_list
+							.bg_white.shadow_flat
+								.pd_24
+									h3.title_smaller.font_gray
+										img.icon.opacity.v_align_middle(src='/icons/credit-card_black.png')
+										span.mr_left_8.v_align_middle
+											| Mastercard - 9988
+									p.font_big.opacity.mr_top_16
+										| 3 compras realizadas con esta tarjeta
+									.mr_top_24.text_align_right
+										button.font_red.font_big
+											| Eliminar tarjeta
+						.text_align_right.pd_16
+							button.pd_24.bg_secondary.circle.shadow_raised.hover_dark
+								img.icon(src='/icons/credit-card-plus_white.png')

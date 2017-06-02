@@ -1,0 +1,108 @@
+extends layout
+
+block content
+	script( src="/js/logicaFront/productos.js", type="text/javascript")
+	article.main_container.bg_black
+		.carousel_indicator
+			#main-carousel-indicator.inner
+				i.point.circle.indicator
+				span.point.circle
+				span.point.circle
+				span.point.circle
+				span.point.circle
+		section#main-carousel.sub_container
+			.main_block.carousel_element
+				.img_container
+					img(src='http://68.media.tumblr.com/1d61dae31b193943228a565b7662ee92/tumblr_inline_nvsq9vNp8S1r8oq6p_500.jpg', adjustable='')
+				.info_container
+					.center_info.font_white
+						h1.title_big
+							| The 1975
+						h3.font_big.mr_top_16
+							| "The best alternative band" -Billboard
+						div
+							a(href='/producto/1')
+								button.pd_16.border_white.font_white.mr_top_32.border_radius
+									h4.font_big.font_light Ver productos
+			.main_block.carousel_element
+				.img_container
+					img(src='https://i.ytimg.com/vi/adYMdusq-RU/maxresdefault.jpg', adjustable='')
+				.info_container.text_align_right
+					.center_info.font_white
+						h1.title_big
+							| I Like It When You Sleep, for You Are So Beautiful Yet So Unaware of It 
+						h3.font_big.mr_top_16
+							| New Album
+						div
+							a(href='/producto/1')
+								button.pd_16.border_white.font_white.mr_top_32.border_radius
+									h4.font_big.font_light Compralo ahora
+			.main_block.carousel_element
+				.img_container
+					img(src='https://news.bandsintown.com/wp-content/uploads/2016/05/The1975_PamelaAyala11.png?w=766&h=430&fit=crop&crop=center&s=861f03588aa6e391405ea38febc84954', adjustable='')
+				.info_container
+					.center_info.font_white
+						h1.title_big
+							| The 1975 in Mexico City
+						h3.font_big.mr_top_16
+							| Pepsi Center, 9th April
+						div
+							a(href='/producto/1')
+								button.pd_16.border_white.font_white.mr_top_32.border_radius
+									h4.font_big.font_light Comprar ahora
+			.main_block.carousel_element
+				.img_container
+					img(src='http://blog.presentandcorrect.com/wp-content/uploads/2016/03/SOMEBODYELSE_WEB.jpg', adjustable='')
+				.info_container.text_align_right
+					.center_info.font_white
+						h1.title_big
+							| Somebody Else
+						h3.font_big.mr_top_16
+							| Lisen it on Google Play
+						div
+							a(href='/producto/1')
+								button.pd_16.border_white.font_white.mr_top_32.border_radius
+									h4.font_big.font_light Comprar ahora
+	article
+		.responsive_padding
+			h1.title_bigger.mr_bottom_48.font_primary.font_normal
+				| Algunos productos que te pueden interesar
+			section.responsive_col.text_align_center
+				.col_3.text_align_left(ng-repeat='producto in productos')
+					.pd_8.product
+						.bg_white.shadow_flat
+							.pr_img
+								a(href='/producto/{{ producto._id }}')
+									.img_container
+										img( ng-src='{{producto.foto}}')
+							.product_info
+								.pd_24
+									.info.mr_bottom_32
+										h2.title_small
+											| {{producto.nombre}}
+										.mr_top_16
+											h3.font_big.font_gray
+												| Descripcion:
+											p.font_big.pd_8
+												| {{producto.descripcion}}
+									.mr_bottom_16.sub_info
+										h3.font_big.mr_bottom_4.font_gray
+											| Stock:
+											span.title_smaller.mr_left_4
+												| {{producto.cantidad}}
+									.add_cart_container.text_align_center.mr_bottom_16
+										h4.font_gray.mr_bottom_8
+											| Añadir al carrito
+										button.circle.hover_black(title='Quitar' ng-click="agregar(false, $index)")
+											img.icon.opacity(src='icons/minus_black.png')
+										span.pd_8.title_smaller.v_align_middle()
+											| {{ producto.agregados }}
+										button.circle.hover_black(title='Agregar' ng-click="agregar(true, $index)")
+											img.icon.opacity(src='icons/plus_black.png')
+									.price_container.text_align_right
+										.prices											
+											h2.title_medium.mr_top_16.total
+												| $ {{producto.precio}}
+									p.text_align_left.mr_top_8
+										a.font_gray.font_bold(href='/producto/{{ producto._id }}', target='_blank') Ver mas
+

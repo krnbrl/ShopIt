@@ -1,0 +1,136 @@
+doctype html
+html
+	head
+		title= title
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width, maximum-scale=1.0 user-scalable=no')
+		link(rel='stylesheet', type='text/css', href='/stylesheets/style.css')
+		link(rel='stylesheet', type='text/css', href='/stylesheets/style_resp_425.css')
+		link(rel='stylesheet', type='text/css', href='/stylesheets/style_resp_768.css')
+		link(rel='stylesheet', type='text/css', href='/stylesheets/style_resp_1024.css')
+		link(rel='stylesheet', type='text/css', href='/stylesheets/style_resp_1440.css')
+		script(type='text/javascript', src='/js/jquery-3.2.1.min.js')
+		script(type='text/javascript', src='/js/design_control.js')
+		script( src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js", type="text/javascript")
+	body(ng-app="aplicacion")
+		section.toolbar.bg_primary.shadow_flat
+			button#menu_button.menu_button(onclick='showMenu( true );')
+				img.icon.v_align_middle(src='/icons/menu.png')
+			.toolbar_in
+				.logo_container.font_white.v_align_top
+					img.icon.v_align_middle(src='/icons/logo_white.png')
+					h1.title_smaller.v_align_middle Shop It
+				.right_info.font_white
+					if datos && datos.privilegio == 0
+						span.v_align_top.font_big.info_icons
+							span#cart-button.hover_black(onclick='showCart( true );')
+								.pd_right_16.pd_left_16
+									img.icon.mr_right_8.v_align_middle(src='/icons/cart_white.png')
+									b#cart-items.v_align_middle {{ productosAgregados.length }}
+		.toolbar_back
+		article#menu.menu.shadow_flat.bg_white
+			.close.text_align_right
+				button.text_align_center.hover_black(onclick='showMenu( false );')
+					img.icon.opacity.v_align_middle(src='/icons/close_black.png')
+			if datos
+				section.profile_container
+					.pd_24.text_align_center
+						a.font_gray(href='/cuenta')
+							.img_container.circle.margin_auto
+								img(src='/icons/default_profile.png')
+						.name.mr_top_24
+							a.font_gray(href='/cuenta')
+								h3.title_smaller
+									| #{datos.nombre} #{datos.apellido}
+			section.list
+				if datos
+					nav.menu_options
+						a(href='/')
+							li.pd_16.hover_black
+								img.icon.opacity(src='/icons/home_black.png')
+								strong
+									| Inicio
+						if datos.privilegio == 0
+							a(href='/historial')
+								li.pd_16.hover_black
+									img.icon.opacity(src='/icons/shopping_black.png')
+									strong
+										| Historial de compras
+							a(href='/carrito')
+								li.pd_16.hover_black
+									img.icon.opacity(src='/icons/cart_black.png')
+									strong
+										| Carrito
+						a(href='/cuenta')
+							li.pd_16.hover_black
+								img.icon.opacity(src='/icons/account_black.png')
+								strong
+									| Cuenta
+						if datos.privilegio == 1
+							a(href='/admin')
+								li.pd_16.hover_black
+									img.icon.opacity(src='/icons/edit_black.png')
+									strong
+										| Administrador
+			section.bottom_actions
+				if datos
+					.text_align_right
+						a.font_red(href='/logout')
+							button.font_red.pd_16.font_big
+								| Cerrar sesión
+				else
+					.text_align_right
+						a.font_red(href='/registro')
+							button.pd_16.font_red.font_big
+								| Registrate
+					.text_align_right
+						a.font_red(href='/login')
+							button.pd_16.font_red.font_big
+								| Iniciar Sesión
+		if datos && datos.privilegio == 0
+			article#cart-mini-list.cart_container.bg_lightgray.shadow_flat
+				.inner.pd_8
+					a.underline.font_gray(href='/carrito')
+						h2.title_medium.font_gray.pd_8.cart_title.text_align_right
+							| Mi carrito {{ productosAgregados.length }}
+					button.close.hover_black(onclick='showCart( false );')
+						img.icon.opacity(src='/icons/close_black.png')
+					.history_total_amount.text_align_right.mr_top_8
+						.pd_right_16.pd_left_16
+							span.mr_right_8
+								h3.title_smaller.mr_bottom_12.opacity
+									| Por pagar
+							span
+								h2.title_small.font_primary $849.73
+					.products_list
+						.product(ng-repeat="producto in productosAgregados")
+							.bg_white.shadow_flat
+								.pr_img
+									a(href='/producto/{{producto._id}}')
+										.img_container
+											img(ng-src='{{producto.foto}}')
+								.product_info
+									.pd_16
+										.info.mr_bottom_24
+											h2.title_smaller
+												| {{producto.nombre}}
+											.mr_top_16
+												h3.font_gray
+													| Descripcion:
+												p.pd_8
+													| {{producto.descripcion}}
+										.price_container.text_align_right
+											.prices
+												h2.title_smaller.mr_top_16.total
+													| $ {{producto.precio}}
+										p.text_align_right.mr_top_8
+											a.font_gray.font_bold(href='/producto/1', target='_blank') Ver mas
+										.delete_container.text_align_right.pd_top_16
+											button.font_red.font_big
+												| Eliminar del carrito
+		if datos && datos.privilegio == 1
+			div
+				block content
+		else
+			div(ng-controller="productosCtrl" ng-init="mostrarProductos()")
+				block content

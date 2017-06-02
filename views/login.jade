@@ -1,0 +1,46 @@
+doctype html
+html( ng-app="aplicacion" )
+	head
+		title= title
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width, maximum-scale=1.0 user-scalable=no')
+		link(rel='stylesheet', type='text/css', href='/stylesheets/style.css')
+		link(rel='stylesheet', type='text/css', href='/stylesheets/style_resp_425.css')
+		link(rel='stylesheet', type='text/css', href='/stylesheets/style_resp_768.css')
+		link(rel='stylesheet', type='text/css', href='/stylesheets/style_resp_1024.css')
+		link(rel='stylesheet', type='text/css', href='/stylesheets/style_resp_1440.css')
+		script(type='text/javascript', src='/js/jquery-3.2.1.min.js')
+		script(type='text/javascript', src='/js/design_control.js')
+		script( src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js", type="text/javascript")
+		script( src="/js/logicaFront/login.js", type="text/javascript")
+	body( ng-controller="loginCtrl" )
+		.login_bg.bg_primary
+		section.login_container
+			.logo_container.text_align_center
+				img.v_align_middle.mr_right_16(src='/icons/logo_white.png', style='height: 40px;')
+				span.v_align_middle
+					h1.font_white.title_big.font_normal Shop It
+			.bg_white.shadow_flat.mr_12.mr_top_24
+				.pd_24
+					.title_container.text_align_center
+						h2.title_big.pd_top_8.font_primary
+							| Iniciar Sesión
+					form( ng-submit="loguea()" )
+						.pd_top_48.pd_bottom_48
+							.pd_16.font_red(ng-if="error != ''")
+								{{error}}
+							.icon_field
+								img.icon.opacity(src='/icons/account_black.png')
+								.field_container
+									label.opacity.font_bold.font_small Mail
+									.field
+										input(type='text', name='mail', placeholder='Mail', ng-model="mail")
+							.icon_field.mr_top_16
+								img.icon.opacity(src='/icons/lock_black.png')
+								.field_container
+									label.opacity.font_bold.font_small Contraseña
+									.field
+										input(type='password', name='contra', placeholder='Contraseña', ng-model="pass")
+						.field_container
+							.field
+								input.bg_secondary.shadow_raised.w_100.font_white.border_radius(type='submit', name='contra', value='Iniciar')

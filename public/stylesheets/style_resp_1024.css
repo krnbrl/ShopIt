@@ -1,0 +1,123 @@
+@media screen and (min-width: 1024px) {
+
+	.responsive_padding{padding: 64px 48px 64px 48px;}
+
+	.responsive_col .col_3 {
+		width: 33.3333333%;
+	}
+
+	.responsive_col .col_4 {
+		width: 25%;
+	}
+
+	.toolbar, .toolbar_back {
+		height: 64px;
+	}
+
+	.toolbar button.menu_button {
+		width: 64px;
+	}
+
+	.toolbar .toolbar_in {
+		width: calc(100% - 64px);
+		line-height: 62px;
+		margin-left: 64px;
+	}
+
+	.toolbar .toolbar_in .right_info .search_bar_container {
+		width: 480px;
+	}
+
+	.toolbar .toolbar_in .right_info .search_bar_container:hover {
+		background-color: transparent;
+		cursor: normal;
+	}
+
+	#search-icon{
+		display: none;
+	}
+
+	.toolbar .toolbar_in .right_info .search_bar_container .search_bar {
+		position: relative;
+		display: block;
+		width: auto;
+		margin-left: 8px;
+		margin-right: 16px;
+	}
+
+	.toolbar .toolbar_in .right_info .search_bar_container .search_bar .text_field {
+		margin-right: 0;
+		height: 52px;
+	}
+
+	.toolbar .toolbar_in .right_info .search_bar_container .search_bar .text_field input {
+		width: calc(100% - 64px);
+		padding-left: 52px;
+		padding-right: 12px;
+	}
+
+	.toolbar .toolbar_in .right_info .search_bar_container .search_bar .text_field button {
+		width: 52px;
+	}
+
+	.toolbar .toolbar_in .right_info .search_bar_container .search_bar .text_field button.close {
+		display: none;
+	}
+
+	.page { margin: 24px auto;padding-left: 24px;padding-right: 24px; }
+
+	.product_h_list .product .pr_img {
+		width: 360px;
+	}
+
+	.product_h_list .product .product_info {
+		width: calc(100% - 360px);
+	}
+
+	.product_h_list .product .product_info .pd_24 {
+		padding-left: 32px;
+	}
+
+	.cart_container {
+		height: calc(100% - 64px);
+	}
+
+	.product_detail, .account_container {
+		max-width: none;
+		width: auto;
+		padding-left: 24px;
+		padding-right: 24px;
+	}
+
+	.account_container .left, .product_detail .left {
+		width: 420px;
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	.account_container .right, .product_detail .right {
+		width: calc(100% - 444px);
+		margin-left: 24px;
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	.account_container .right .title {
+		padding-top: 0;
+		color: #FFF !important;
+	}
+
+	.pop_up_container .pop_up.big {
+		max-width: 1080px;
+	}
+
+	.pop_up_container .pop_up .inner {
+		padding: 48px;
+	}
+
+	.pop_up_container .pop_up .inner .responsive_col .col_2 {
+		display: inline-block;
+		width: calc(50% - 8px);
+	}
+
+}

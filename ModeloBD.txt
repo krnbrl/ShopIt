@@ -1,0 +1,43 @@
+Producto:
+	-Nombre: String
+	-Descripción: String
+	-Precio: Float
+	-Foto: String (url)
+	-Cantidad Disponible en Tienda (Stock): Interger
+	-Descuento (Si cuenta con alguno): Interger
+Usuario:
+	-Id: Interger o String (Que sea alfanumerico o numerico, el correo no xD)
+	-Privilegio: Interger
+	-Nombre: String
+	-ApellidoP: String
+	-ApellidoM: String
+	-Correo Electronico (PK): String
+	-Numero de telefono (PK): Interger
+	-Dirección
+		-Calle: String
+		-Colonia: String
+		-Ciudad: String
+		-Pais: String
+	-Saldo Disponible: Float
+	-Foto de Perfil: String (url)
+	-Tarjeta (Credito o Debito)
+		-Numero de tarjeta: Interger
+		-CVV: Interger
+		-Saldo en tarjeta: Interger
+	-Compra (Historial de Compras)
+		-Id Compra: Interger o String
+		-Cantidad (Monto): Float
+		-Producto: 
+			-Nombre: String
+			-Cantidad: Interger
+			-Precio: Float
+			-Descripción: String
+		-Cantidad de productos comprados: Interger
+		-Fecha de compra: Date
+	-Carrito de compras (Temporal hasta que confirme la compra)
+		-Producto
+			-Nombre: String
+			-Precio: Float
+			-Descripción: String
+			-Cantidad: Interger
+		-Cantidad a Pagar: Float

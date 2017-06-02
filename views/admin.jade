@@ -1,0 +1,172 @@
+extends layout
+
+block content
+	script( src="/js/logicaFront/admin.js", type="text/javascript")
+	.main_action_button
+		button.pd_24.bg_secondary.shadow_raised.circle(onclick="showPopup( true, '#add-product-popup')")
+			img.icon(src='/icons/plus_white.png')
+	style(type='text/css')
+		| .toolbar .toolbar_in .right_info { display: none }
+	article.page(ng-controller="adminCtrl" ng-init="mostrarProductos()")
+		#add-product-popup.pop_up_container
+			.pop_up_back(onclick="showPopup( false, '#add-product-popup' );")
+			.pop_up.big
+				.inner
+					.bg_white.shadow_raised
+						.bg_primary.font_white
+							.text_align_right.pd_8
+								button.pd_8.circle.hover_black(onclick="showPopup( false, '#add-product-popup' );")
+									img.icon(src='/icons/close_white.png')
+							.pop_up_title
+								h1.title_big
+									| Agregar Producto
+						form.pd_16.padding_block.responsive_col(action="/admin", method="POST")
+							.col_2.v_align_top.mr_bottom_24
+								.pd_8
+									.photo_container.profile_container
+										h2.title_smaller.mr_bottom_24.font_primary
+											| Imagen
+										.pd_left_16.pd_right_16
+											.field_container.mr_top_16
+												label.opacity.font_bold.font_small Url Imagen
+												.field
+													input(type='text', name='foto', placeholder='url')
+									.data_container.mr_top_32
+										h2.title_smaller.mr_bottom_24.font_primary
+											| Nombre
+										.pd_left_16.pd_right_16
+											.field_container
+												label.opacity.font_bold.font_small Nombre
+												.field
+													input(type='text', name='nombre', placeholder='Nombre(s)')
+							.col_2.v_align_top
+								.pd_8
+									.data_container
+										h2.title_smaller.mr_bottom_24.font_primary
+											| Descripción
+										.pd_left_16.pd_right_16
+											.field_container
+												label.opacity.font_bold.font_small Descripción
+												.field
+													textarea(name='descripcion', placeholder='Escribe aqui')
+									.data_container.mr_top_32
+										h2.title_smaller.mr_bottom_24.font_primary
+											| Cantidad en tienda
+										.pd_left_16.pd_right_16
+											.field_container
+												label.opacity.font_bold.font_small Cantidad
+												.field
+													input(type='text', name='cantidad', placeholder='Cantidad')
+									.data_container.mr_top_32
+										h2.title_smaller.mr_bottom_24.font_primary
+											| Precio
+										.pd_left_16.pd_right_16
+											.field_container.mr_top_12
+												label.opacity.font_bold.font_small Precio
+												.field
+													input(type='text', name='precio', placeholder='Precio')
+							.field_container.mr_top_32
+								.field.text_align_right
+									input.bg_secondary.shadow_raised.font_white.border_radius(type='submit', name='', value='Guardar Cambios')
+		#edit-product-popup.pop_up_container
+			.pop_up_back(onclick="showPopup( false, '#edit-product-popup' );")
+			.pop_up.big
+				.inner
+					.bg_white.shadow_raised
+						.bg_primary.font_white
+							.text_align_right.pd_8
+								button.pd_8.circle.hover_black(onclick="showPopup( false, '#edit-product-popup' );")
+									img.icon(src='/icons/close_white.png')
+							.pop_up_title
+								h1.title_big
+									| Editar Producto
+						form.pd_16.padding_block.responsive_col(action='/editarProducto', method='POST')
+							input(type="hidden" name="idProducto" value="{{ productoEditar._id }}")
+							.col_2.v_align_top.mr_bottom_24
+								.pd_8
+									.photo_container.profile_container
+										h2.title_smaller.mr_bottom_24.font_primary
+											| Imagen
+										.text_align_center.mr_bottom_16
+											img#product-newphoto.popup_product_img(ng-src='{{ productoEditar.foto }}')
+										.pd_left_16.pd_right_16
+											.field_container.mr_top_16
+												label.opacity.font_bold.font_small Url Imagen
+												.field
+													input(type='text', name='foto', ng-model="productoEditar.foto" placeholder='url')
+									.data_container.mr_top_32
+										h2.title_smaller.mr_bottom_24.font_primary
+											| Nombre
+										.pd_left_16.pd_right_16
+											.field_container
+												label.opacity.font_bold.font_small Nombre
+												.field
+													input(type='text', name='nombre' ng-model="productoEditar.nombre", placeholder='Nombre(s)')
+							.col_2.v_align_top
+								.pd_8
+									.data_container
+										h2.title_smaller.mr_bottom_24.font_primary
+											| Descripción
+										.pd_left_16.pd_right_16
+											.field_container
+												label.opacity.font_bold.font_small Descripción
+												.field
+													textarea(name='descripcion', ng-model="productoEditar.descripcion" placeholder='Escribe aqui')
+									.data_container.mr_top_32
+										h2.title_smaller.mr_bottom_24.font_primary
+											| Cantidad en tienda
+										.pd_left_16.pd_right_16
+											.field_container
+												label.opacity.font_bold.font_small Cantidad
+												.field
+													input(type='text', name='cantidad', ng-model="productoEditar.cantidad" placeholder='Cantidad')
+									.data_container.mr_top_32
+										h2.title_smaller.mr_bottom_24.font_primary
+											| Precio
+										.pd_left_16.pd_right_16
+											.field_container.mr_top_12
+												label.opacity.font_bold.font_small Precio
+												.field
+													input(type='text', name='precio', ng-model="productoEditar.precio" placeholder='Precio')
+							.field_container.mr_top_32
+								.field.text_align_right
+									input.bg_secondary.shadow_raised.font_white.border_radius(type='submit', name='', value='Guardar Cambios')
+		.account_container
+			h1.title_bigger.pd_24.font_primary.font_normal
+				| Administrar productos
+			section.product_h_list
+				section.history_section
+					.pd_8.product(ng-repeat="producto in productos")
+						.text_align_right.font_primary
+							span.font_small.mr_right_4.font_bold Editar
+							button.pd_8.circle.hover_black(onclick="showPopup( true, '#edit-product-popup' );" ng-click="editarProducto(producto)")
+								img.opacity.icon(src='/icons/edit_black.png')
+						.bg_white.shadow_flat
+							.pr_img
+								a(href='/producto/{{ producto._id }}')
+									.img_container
+										img(ng-src='{{producto.foto}}')
+							.product_info
+								.pd_24
+									.info.mr_bottom_16
+										h2.title_small
+											| {{ producto.nombre }}
+										.mr_top_16
+											h3.font_big.font_gray
+												| Descripcion:
+											p.font_big.pd_8
+												| {{ producto.descripcion}}
+									.mr_bottom_16.sub_info
+										h3.font_big.mr_bottom_4.font_gray
+											| Stock:
+											span.title_smaller.mr_left_4
+												| {{producto.cantidad}}
+									.price_container
+										.prices.text_align_right
+											h2.title_small.total.mr_top_16
+												span.opacity.title_smaller Precio: 
+												span.mr_left_8 $ {{producto.precio}}
+											
+									p.text_align_right.mr_top_16
+										a.font_gray.font_bold(href='/producto/{{producto._id}}', target='_blank') Ver mas
+

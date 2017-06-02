@@ -1,0 +1,43 @@
+@media screen and (min-width: 425px) {
+
+	.responsive_padding{padding: 48px 24px 48px 24px;}
+
+	.toolbar .toolbar_in .logo_container {
+		width: 140px;
+		display: inline-block;
+	}
+
+	.toolbar .toolbar_in .right_info {
+		width: calc(100% - 140px);
+	}
+
+	.main_container .sub_container .main_block .info_container .center_info {
+		padding-left: 48px;
+		padding-right: 48px;
+	}
+
+	.pop_up_container .pop_up .inner .pop_up_title {
+		padding: 0 24px 24px 24px;
+	}
+
+	.login_container {
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 480px;
+	}
+
+	.page {
+		margin: 16px auto;
+		max-width: 1080px;
+	}
+
+	.account_container {
+		margin: 0 auto;
+		max-width: 620px;
+	}
+
+	.account_subcontainer {
+		margin-top: 16px;
+	}
+
+}
