@@ -1,7 +1,6 @@
 extends layout
 
 block content
-	script( src="/js/logicaFront/productos.js", type="text/javascript")
 	article.main_container.bg_black
 		.carousel_indicator
 			#main-carousel-indicator.inner
@@ -93,16 +92,13 @@ block content
 									.add_cart_container.text_align_center.mr_bottom_16
 										h4.font_gray.mr_bottom_8
 											| Añadir al carrito
-										button.circle.hover_black(title='Quitar' ng-click="agregar(false, $index)")
-											img.icon.opacity(src='icons/minus_black.png')
-										span.pd_8.title_smaller.v_align_middle()
-											| {{ producto.agregados }}
-										button.circle.hover_black(title='Agregar' ng-click="agregar(true, $index)")
-											img.icon.opacity(src='icons/plus_black.png')
+										a(href="/producto/{{producto._id}}" class="font_white")
+											div.pd_12.bg_secondary.border_radius(title='Agregar') 
+												img.icon.v_align_middle(src='icons/cart_white.png')
+												span.mr_left_8.v_align_middle Agregar al carrito
 									.price_container.text_align_right
-										.prices											
+										.prices										
 											h2.title_medium.mr_top_16.total
 												| $ {{producto.precio}}
 									p.text_align_left.mr_top_8
 										a.font_gray.font_bold(href='/producto/{{ producto._id }}', target='_blank') Ver mas
-

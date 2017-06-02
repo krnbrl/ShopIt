@@ -2,25 +2,36 @@ extends layout
 
 block content
 	article.page
-		section.product_detail
+		section.product_detail(ng-init="inicializar()")
 			section.left
 				.img_container.super_img
-					img(src='https://www.theedgesusu.co.uk/wp-content/uploads/2015/10/the-1975-love-me-single-artwork1.jpg')
+					img(src='#{producto.foto}')
 				.pd_24
+					input(type="hidden", id="id-prod", ng-model="producto.id", value='#{producto._id}')
+					input(type="hidden", id="id-nombre", ng-model="producto.nombre", value='#{producto.nombre}')
+					input(type="hidden", id="id-descripcion", ng-model="producto.descripcion", value='#{producto.descripcion}')
+					input(type="hidden", id="id-precio", ng-model="producto.precio", value='#{producto.precio}')
+					input(type="hidden", id="id-foto", ng-model="producto.foto", value='#{producto.foto}')
+					input(type="hidden", ng-model="producto.cantidad")
+					input(type="hidden", ng-model="stock", id="id-stock", value='#{producto.cantidad}')
 					h1.title_medium.font_primary
-						| Love Me
+						| #{producto.nombre}'
 					h2.title_smaller.mr_top_16.opacity
 						| Stock en tienda: 
-						span.mr_left_8 {{producto.cantidad}}
+						span.mr_left_8 #{producto.cantidad}
 					.add_cart_container.text_align_center.mr_top_24
 						h3.font_gray.mr_bottom_8
 							| Añadir al carrito
-						button.circle.hover_black.button_size40(title='Quitar')
+						button.circle.hover_black.button_size40(title='Quitar' ng-click="agregar(false)")
 							img.icon.opacity(src='/icons/minus_black.png')
 						span.pd_8.title_smaller.v_align_middle
-							| 0
-						button.circle.hover_black.button_size40(title='Agregar')
+							| {{ producto.cantidad }}
+						button.circle.hover_black.button_size40(title='Agregar' ng-click="agregar(true)")
 							img.icon.opacity(src='/icons/plus_black.png')
+					div.text_align_center.pd_top_32
+						button.pd_12.bg_secondary.border_radius(title='Agregar' ng-click="agregarAlCarro()") 
+							img.icon.v_align_middle(src='/icons/cart_white.png')
+							span.mr_left_8.v_align_middle Agregar al carrito
 			section.right
 				.product
 					.product_info
@@ -30,13 +41,13 @@ block content
 									h3.title_smaller.mr_bottom_8.font_gray
 										| Descripcion:
 									p.title_small.pd_8
-										| Single
+										| #{producto.descripcion}
 							.price_container.text_align_right
 								.prices
 									.discount
 									h2.title_big.total.mr_top_16.font_normal
-										| $ 17.00
-//*		section.valorations
+										| $ #{producto.precio}
+//		section.valorations
 			h2.font_primary.title_medium.pd_24.resp_title
 				| Valoraciones y comentarios
 			.val_list.responsive_col.text_align_center
@@ -56,4 +67,4 @@ block content
 								.mr_top_16
 									p.font_big
 										| Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-*//
+//

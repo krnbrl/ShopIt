@@ -28,7 +28,7 @@ html( ng-app="aplicacion" )
 					form( ng-submit="loguea()" )
 						.pd_top_48.pd_bottom_48
 							.pd_16.font_red(ng-if="error != ''")
-								{{error}}
+								| {{error}}
 							.icon_field
 								img.icon.opacity(src='/icons/account_black.png')
 								.field_container

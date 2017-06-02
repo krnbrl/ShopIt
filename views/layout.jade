@@ -1,5 +1,5 @@
 doctype html
-html
+html(ng-app="aplicacion")
 	head
 		title= title
 		meta(charset='utf-8')
@@ -12,8 +12,9 @@ html
 		script(type='text/javascript', src='/js/jquery-3.2.1.min.js')
 		script(type='text/javascript', src='/js/design_control.js')
 		script( src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js", type="text/javascript")
-	body(ng-app="aplicacion")
-		section.toolbar.bg_primary.shadow_flat
+		script( src="/js/logicaFront/productos.js", type="text/javascript")
+	body(ng-controller="productosCtrl")
+		section.toolbar.bg_primary.shadow_flat(ng-init="mostrarCarro()")
 			button#menu_button.menu_button(onclick='showMenu( true );')
 				img.icon.v_align_middle(src='/icons/menu.png')
 			.toolbar_in
@@ -26,7 +27,7 @@ html
 							span#cart-button.hover_black(onclick='showCart( true );')
 								.pd_right_16.pd_left_16
 									img.icon.mr_right_8.v_align_middle(src='/icons/cart_white.png')
-									b#cart-items.v_align_middle {{ productosAgregados.length }}
+									b#cart-items.v_align_middle {{ productosCarro.length }}
 		.toolbar_back
 		article#menu.menu.shadow_flat.bg_white
 			.close.text_align_right
@@ -92,7 +93,7 @@ html
 				.inner.pd_8
 					a.underline.font_gray(href='/carrito')
 						h2.title_medium.font_gray.pd_8.cart_title.text_align_right
-							| Mi carrito {{ productosAgregados.length }}
+							| Mi carrito {{ productosCarro.length }}
 					button.close.hover_black(onclick='showCart( false );')
 						img.icon.opacity(src='/icons/close_black.png')
 					.history_total_amount.text_align_right.mr_top_8
@@ -101,17 +102,17 @@ html
 								h3.title_smaller.mr_bottom_12.opacity
 									| Por pagar
 							span
-								h2.title_small.font_primary $849.73
+								h2.title_small.font_primary $ {{ getTotal() }}
 					.products_list
-						.product(ng-repeat="producto in productosAgregados")
+						.product(ng-repeat="producto in productosCarro")
 							.bg_white.shadow_flat
 								.pr_img
-									a(href='/producto/{{producto._id}}')
+									a(href='/producto/{{producto.id}}')
 										.img_container
 											img(ng-src='{{producto.foto}}')
 								.product_info
 									.pd_16
-										.info.mr_bottom_24
+										.info.mr_bottom_16
 											h2.title_smaller
 												| {{producto.nombre}}
 											.mr_top_16
@@ -119,6 +120,11 @@ html
 													| Descripcion:
 												p.pd_8
 													| {{producto.descripcion}}
+										.mr_bottom_16.sub_info
+											h3.font_big.mr_bottom_4.font_gray
+												| Cantidad:
+												span.title_smaller.mr_left_4
+													| {{producto.cantidad}}
 										.price_container.text_align_right
 											.prices
 												h2.title_smaller.mr_top_16.total
@@ -132,5 +138,5 @@ html
 			div
 				block content
 		else
-			div(ng-controller="productosCtrl" ng-init="mostrarProductos()")
+			div(ng-init="mostrarProductos()")
 				block content

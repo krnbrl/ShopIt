@@ -54,7 +54,8 @@ router.route('/login')
 						apellido: doc[0].apellido,
 						mail: doc[0].mail,
 						telefono: doc[0].telefono,
-						direccion: doc[0].direccion
+						direccion: doc[0].direccion,
+						compras: doc[0].compras
 					}
 					res.status(200).jsonp( doc );
 				} else {
@@ -87,14 +88,78 @@ router.get('/carrito', function(req, res, next) {
 });
 
 router.get('/producto/:idProducto', function(req, res, next) {
-	res.render('producto', { title: 'ShopIt Producto: ' + req.query.idProducto, datos: req.session.datos });
+	Producto.find({_id: req.params.idProducto}, function(err, doc){
+		if(err){
+			res.status(500).send(err);
+		}else{
+			res.render('producto', { title: 'ShopIt | ' + req.params.idProducto, datos: req.session.datos, producto: doc[0] });		
+		}
+	})
+});
+
+router.post('/AgregarAlCarro', function(req, res, next){
+	if (req.cookies.carrito == undefined) {
+		res.cookie('carrito', { productos:[req.query] });
+	} else {
+		var idProd = req.query.id;
+		var carrito = req.cookies.carrito.productos;
+		var carritoNuevo = carrito;
+		var flag = false;
+		for ( var i = 0 ; i < carritoNuevo.length ; i++ ) {
+			var cantidadVieja = 0;
+			if ( carritoNuevo[i].id === idProd ) {
+				flag = true;
+				break;
+			}	
+		}
+		if ( flag ) {
+			cantidadVieja = parseInt(carritoNuevo[i].cantidad);
+			carrito[i].cantidad = cantidadVieja + parseInt(req.query.cantidad);
+		} else {
+			carrito.push(req.query);
+		}
+		res.cookie('carrito', { productos: carrito });
+	}
+	res.status(200).send('Se agrego');
+})
+
+router.get('/MostrarCarro', function(req, res, next){
+	if ( req.cookies.carrito.productos.length > 0 ) {
+		res.status(200).jsonp(req.cookies.carrito.productos);
+	} else {
+		res.status(500).send('No hay productos en el carrito');
+	}
+});
+
+router.post('/ConfirmarCompra', function(req, res, next){
+	var fecha = new Date();
+	var productos = req.query.compra;
+
+	for ( var i = 0; i < productos.length; i++ ) {
+		productos[i].fechaCompra = fecha;
+	}
+
+	User.update(
+		{ mail: req.session.datos.mail },
+		{ $push: { compras: [
+						productos
+				]
+			}
+		}, function(err, doc){
+			if (err) {
+				console.log(err);
+				res.status(500).send(err);
+			}else{
+				res.clearCookie('carrito');
+				res.status(200).send('Compra realizada');
+			}
+	});
+
 });
 
 
 /*Funciones pa angular*/
 router.post('/registrar', function(req, res, next) {
-
-	console.log(req.query);
 
 	var guardaUser = new User({
 			privilegio: 0,

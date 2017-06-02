@@ -15,13 +15,12 @@ var User = mongoose.Schema({
 		saldo: 	{ type: Number }
 	}],
 	compras: [{ 
-		cantidadTotal: { type: Number },
-		producto: [{  
-			nombre: 	 { type: String },
-			descripcion: { type: String },
-			precio: 	 { type: Number },
-			cantidad: 	 { type: Number }
-		}],
+		id: 		 { type: String },
+		nombre: 	 { type: String },
+		descripcion: { type: String },
+		precio: 	 { type: Number },
+		cantidad: 	 { type: Number },
+		foto: 		 { type: String },
 		fechaCompra: { type: Date }
 	}],
 	psw: { type: String }

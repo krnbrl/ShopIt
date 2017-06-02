@@ -5,55 +5,45 @@ block content
 		h1.title_bigger.pd_24.font_primary.font_normal
 			| Mi carrito
 			span.float_right
-				h3.title_small.pd_top_16.font_black.pd_8 3 Elementos
+				h3.title_small.pd_top_16.font_black.pd_8 {{ productosCarro.length }} Elementos
 		.responsive_col.pd_left_24.pd_right_24.mr_bottom_8
 			.col_2.v_align_middle.mr_top_24
 				.history_total_amount.text_align_left
 					h3.title_smaller.mr_bottom_12.opacity Por pagar
-					h2.title_medium.font_primary $849.73
+					h2.title_medium.font_primary $ {{ getTotal() }}
 			.col_2.v_align_middle.mr_top_24
 				.field_container
 					.field.text_align_right
-						input.bg_secondary.shadow_raised.font_white.border_radius(type='submit' value='Confirmar Compra')
+						input.bg_secondary.shadow_raised.font_white.border_radius(type='submit' value='Confirmar Compra' ng-click="confirmarCompra()")
 		section.product_h_list.pd_16
 			section.history_section
-				.product
+				.product(ng-repeat="producto in productosCarro")
 					.bg_white.shadow_flat
 						.pr_img
-							a(href='/producto/1')
+							a(href='/producto/{{producto.id}}')
 								.img_container
-									img(src='https://s-media-cache-ak0.pinimg.com/originals/cf/a2/58/cfa258fc88436cb491a0a9ebe00334e6.jpg')
+									img(src='{{producto.foto}}')
 						.product_info
 							.pd_24
 								.info.mr_bottom_16
 									h2.title_small
-										| Nombre Producto
+										| {{producto.nombre}}
 									.mr_top_16
 										h3.font_big.font_gray
 											| Descripcion:
 										p.font_big.pd_8
-											| Lorem ipsum dolor si amet consequetur
-								.add_cart_container.text_align_center.mr_bottom_24
-									h4.font_gray.mr_bottom_8
-										| Elementos agregados
-									button.circle.hover_black(title='Quitar')
-										img.icon.opacity(src='/icons/minus_black.png')
-									span.pd_8.title_smaller.v_align_middle
-										| 1
-									button.circle.hover_black(title='Agregar')
-										img.icon.opacity(src='/icons/plus_black.png')
+											| {{producto.descripcion}}
+								.mr_bottom_16.sub_info
+									h3.font_big.mr_bottom_4.font_gray
+										| Cantidad:
+										span.title_smaller.mr_left_4
+											| {{producto.cantidad}}
 								.price_container.text_align_right
 									.prices
-										.discount
-											.opacity.font_big.mr_bottom_4
-												| Descuento 15%
-											h2.opacity.title_smaller
-												strike
-													| $499.84
 										h2.title_medium.mr_top_16.total
-											| $424.86
+											| $ {{producto.precio}}
 								p.text_align_right.mr_top_8
-									a.font_gray.font_bold(href='/producto/1', target='_blank') Ver mas
+									a.font_gray.font_bold(href='/producto/{{producto.id}}', target='_blank') Ver mas
 								.delete_container.text_align_right.pd_top_16
 									button.font_red.font_big
 										| Eliminar del carrito
