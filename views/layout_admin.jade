@@ -12,8 +12,8 @@ html(ng-app="aplicacion")
 		script(type='text/javascript', src='/js/jquery-3.2.1.min.js')
 		script(type='text/javascript', src='/js/design_control.js')
 		script( src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js", type="text/javascript")
-		script( src="/js/logicaFront/productos.js", type="text/javascript")
-	body(ng-controller="productosCtrl" ng-init="mostrarCarro()")
+		script( src="/js/logicaFront/admin.js", type="text/javascript")
+	body(ng-controller="adminCtrl")
 		section.toolbar.bg_primary.shadow_flat
 			button#menu_button.menu_button(onclick='showMenu( true );')
 				img.icon.v_align_middle(src='/icons/menu.png')
@@ -21,13 +21,6 @@ html(ng-app="aplicacion")
 				.logo_container.font_white.v_align_top
 					img.icon.v_align_middle(src='/icons/logo_white.png')
 					h1.title_smaller.v_align_middle Shop It
-				.right_info.font_white
-					if datos
-						span.v_align_top.font_big.info_icons
-							span#cart-button.hover_black(onclick='showCart( true );')
-								.pd_right_16.pd_left_16
-									img.icon.mr_right_8.v_align_middle(src='/icons/cart_white.png')
-									b#cart-items.v_align_middle {{ productosCarro.length }}
 		.toolbar_back
 		article#menu.menu.shadow_flat.bg_white
 			.close.text_align_right
@@ -51,21 +44,16 @@ html(ng-app="aplicacion")
 								img.icon.opacity(src='/icons/home_black.png')
 								strong
 									| Inicio
-						a(href='/historial')
-							li.pd_16.hover_black
-								img.icon.opacity(src='/icons/shopping_black.png')
-								strong
-									| Historial de compras
-						a(href='/carrito')
-							li.pd_16.hover_black
-								img.icon.opacity(src='/icons/cart_black.png')
-								strong
-									| Carrito
 						a(href='/cuenta')
 							li.pd_16.hover_black
 								img.icon.opacity(src='/icons/account_black.png')
 								strong
 									| Cuenta
+						a(href='/admin')
+							li.pd_16.hover_black
+								img.icon.opacity(src='/icons/edit_black.png')
+								strong
+									| Administrador
 			section.bottom_actions
 				if datos
 					.text_align_right
@@ -81,51 +69,5 @@ html(ng-app="aplicacion")
 						a.font_red(href='/login')
 							button.pd_16.font_red.font_big
 								| Iniciar Sesión
-		if datos
-			article#cart-mini-list.cart_container.bg_lightgray.shadow_flat
-				.inner.pd_8
-					a.underline.font_gray(href='/carrito')
-						h2.title_medium.font_gray.pd_8.cart_title.text_align_right
-							| Mi carrito {{ productosCarro.length }}
-					button.close.hover_black(onclick='showCart( false );')
-						img.icon.opacity(src='/icons/close_black.png')
-					.history_total_amount.text_align_right.mr_top_8
-						.pd_right_16.pd_left_16
-							span.mr_right_8
-								h3.title_smaller.mr_bottom_12.opacity
-									| Por pagar
-							span
-								h2.title_small.font_primary $ {{ getTotal() }}
-					.products_list
-						.product(ng-repeat="producto in productosCarro")
-							.bg_white.shadow_flat
-								.pr_img
-									a(href='/producto/{{producto.id}}')
-										.img_container
-											img(ng-src='{{producto.foto}}')
-								.product_info
-									.pd_16
-										.info.mr_bottom_16
-											h2.title_smaller
-												| {{producto.nombre}}
-											.mr_top_16
-												h3.font_gray
-													| Descripcion:
-												p.pd_8
-													| {{producto.descripcion}}
-										.mr_bottom_16.sub_info
-											h3.font_big.mr_bottom_4.font_gray
-												| Cantidad:
-												span.title_smaller.mr_left_4
-													| {{producto.cantidad}}
-										.price_container.text_align_right
-											.prices
-												h2.title_smaller.mr_top_16.total
-													| $ {{producto.precio}}
-										p.text_align_right.mr_top_8
-											a.font_gray.font_bold(href='/producto/1', target='_blank') Ver mas
-										.delete_container.text_align_right.pd_top_16
-											button.font_red.font_big
-												| Eliminar del carrito
 		div(ng-init="mostrarProductos()")
 			block content

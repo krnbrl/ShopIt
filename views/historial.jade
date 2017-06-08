@@ -7,7 +7,7 @@ block content
 		h1.title_bigger.pd_24.font_primary.font_normal
 			| Historial de compras
 		section.pd_16
-			for compra in datos.compras
+			each compra in datos.compras
 				section.history_section
 					section.product_h_list
 						for producto in compra 

@@ -5,7 +5,11 @@ var Producto = require('../models/Product');
 
 /* Renders */
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'ShopIt', datos: req.session.datos });
+	if (req.session.datos && req.session.datos.privilegio == 1) {
+		res.redirect('/admin');
+	} else {
+		res.render('index', { title: 'ShopIt', datos: req.session.datos });
+	}
 });
 
 router.route('/admin')
@@ -132,20 +136,15 @@ router.get('/MostrarCarro', function(req, res, next){
 });
 
 router.post('/ConfirmarCompra', function(req, res, next){
-	var fecha = new Date();
 	var productos = req.query.compra;
-
-	for ( var i = 0; i < productos.length; i++ ) {
-		productos[i].fechaCompra = fecha;
-	}
 
 	User.update(
 		{ mail: req.session.datos.mail },
-		{ $push: { compras: [
-						productos
-				]
+		{ $push: 
+			{ compras:
+				{ $pushAll: {producto: productos} }
 			}
-		}, function(err, doc){
+		}, { upsert: true, new: true}, function(err, doc){
 			if (err) {
 				console.log(err);
 				res.status(500).send(err);

@@ -6,7 +6,7 @@ block content
 			| Mi carrito
 			span.float_right
 				h3.title_small.pd_top_16.font_black.pd_8 {{ productosCarro.length }} Elementos
-		.responsive_col.pd_left_24.pd_right_24.mr_bottom_8
+		.responsive_col.pd_left_24.pd_right_24.mr_bottom_8(ng-if="productosCarro.length > 0")
 			.col_2.v_align_middle.mr_top_24
 				.history_total_amount.text_align_left
 					h3.title_smaller.mr_bottom_12.opacity Por pagar
@@ -22,7 +22,7 @@ block content
 						.pr_img
 							a(href='/producto/{{producto.id}}')
 								.img_container
-									img(src='{{producto.foto}}')
+									img(ng-src='{{producto.foto}}')
 						.product_info
 							.pd_24
 								.info.mr_bottom_16

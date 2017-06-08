@@ -1,13 +1,12 @@
-extends layout
+extends layout_admin
 
 block content
-	script( src="/js/logicaFront/admin.js", type="text/javascript")
 	.main_action_button
 		button.pd_24.bg_secondary.shadow_raised.circle(onclick="showPopup( true, '#add-product-popup')")
 			img.icon(src='/icons/plus_white.png')
 	style(type='text/css')
 		| .toolbar .toolbar_in .right_info { display: none }
-	article.page(ng-controller="adminCtrl" ng-init="mostrarProductos()")
+	article.page
 		#add-product-popup.pop_up_container
 			.pop_up_back(onclick="showPopup( false, '#add-product-popup' );")
 			.pop_up.big

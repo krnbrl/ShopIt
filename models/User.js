@@ -14,14 +14,14 @@ var User = mongoose.Schema({
 		cvv: 	{ type: String },
 		saldo: 	{ type: Number }
 	}],
-	compras: [{ 
-		id: 		 { type: String },
-		nombre: 	 { type: String },
-		descripcion: { type: String },
-		precio: 	 { type: Number },
-		cantidad: 	 { type: Number },
-		foto: 		 { type: String },
-		fechaCompra: { type: Date }
+	compras: [{
+		producto: [{
+			nombre: 	 { type: String },
+			descripcion: { type: String },
+			precio: 	 { type: Number },
+			cantidad: 	 { type: Number }
+		}],
+		fechaCompra: { type: Date, default: new Date() }
 	}],
 	psw: { type: String }
 
